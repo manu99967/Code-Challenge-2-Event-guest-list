@@ -1,54 +1,122 @@
+/* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  padding: 2em;
-  background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin:px;
 }
 
 .container {
-  max-width: 500px;
-  margin: auto;
-  background: white;
-  padding: 1.5em;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    text-align: center;
+    max-height: 1000px;
+    padding: 100px;
+    background-color: blue;
+    border: 10px solid red;
+    overflow-y: auto;
 }
 
 form {
-  margin-bottom: 1em;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: aqua;
 }
 
 input, select, button {
-  margin-right: 5px;
-  padding: 0.5em;
-  font-size: 1em;
+    padding: 30px;
+    font-size: 26px;
 }
 
+input {
+    flex: 4;
+}
+
+select, button {
+    flex: 2;
+}
+
+/* Guest List */
 ul {
-  list-style: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0.5em 0;
-  padding: 0.5em;
-  background-color: #eef;
-  border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f4f4f4;
+    margin: 5px 0;
+    border-left: 5px solid gray;
+    border-radius: 5px;
 }
 
-.category-Friend {
-  border-left: 5px solid green;
-}
-.category-Family {
-  border-left: 5px solid blue;
-}
-.category-Colleague {
-  border-left: 5px solid orange;
+/* Category colors */
+.friend { border-left-color: blue; }
+.family { border-left-color: green; }
+.colleague { border-left-color: purple; }
+
+/* RSVP colors */
+.attending { color: green; font-weight: bold; }
+.not-attending { color: red; font-weight: bold; }
+
+/* Buttons */
+button {
+    border: red;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
 }
 
-button.action-btn {
-  margin-left: 5px;
-  font-size: 0.9em;
+button:hover {
+    background-color: green;
+}
+
+/* Submit Button */
+#submit-btn {
+    background-color: green;
+    color:orange ;
+    border-radius: 5px;
+    border: 10px;
+}
+
+#submit-btn:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+.attending { color: green; font-weight: bold; }
+.not-attending { color: red; font-weight: bold; }
+
+button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }

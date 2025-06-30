@@ -1,51 +1,73 @@
-const guestForm = document.getElementById('guestForm');
-const guestNameInput = document.getElementById('guestName');
-const guestList = document.getElementById('guestList');
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("guest-form");
+  const guestInput = document.getElementById("guest-name");
+  const guestCategory = document.getElementById("guest-category");
+  const guestList = document.getElementById("guest-list");
 
-let guests = [];
+  let guestCount = 0;
+  const MAX_GUESTS = 10;
 
-guestForm.addEventListener('submit', (event) => {
-    event.preventDefault();  // Prevent form submission and page refresh
-    addGuest(guestNameInput.value);
-    guestNameInput.value = '';  // Clear the input field
-});
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = guestInput.value.trim();
+    const category = guestCategory.value;
 
-function addGuest(name) {
-    if (guests.length >= 10) {
-        alert('You can only have up to 10 guests.');
-        return;
+    if (!name || !category) {
+      alert("Please enter a name and select a category.");
+      return;
     }
 
-    const guest = {
-        name: name,
-        attending: 'Not Attending',
-        addedAt: new Date().toLocaleString()
-    };
-    guests.push(guest);
-    renderGuestList();
-}
+    if (guestCount >= MAX_GUESTS) {
+      alert("Guest limit reached (10 guests max).");
+      return;
+    }
 
-function renderGuestList() {
-    guestList.innerHTML = '';  // Clear the existing list
+    addGuest(name, category);
+    guestInput.value = "";
+    guestCategory.value = "";
+  });
 
-    guests.forEach((guest, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <span>${guest.name} - ${guest.attending} (Added: ${guest.addedAt})</span>
-            <button onclick="toggleRSVP(${index})">Toggle RSVP</button>
-            <button onclick="removeGuest(${index})">Remove</button>
-        `;
-        guestList.appendChild(li);
+  function addGuest(name, category) {
+    const li = document.createElement("li");
+
+    const nameSection = document.createElement("div");
+    nameSection.classList.add("name-section");
+
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = name;
+
+    const categoryTag = document.createElement("span");
+    categoryTag.textContent = category;
+    categoryTag.classList.add("category-tag", category.toLowerCase());
+
+    nameSection.appendChild(nameSpan);
+    nameSection.appendChild(categoryTag);
+
+    const actions = document.createElement("div");
+
+    const rsvpBtn = document.createElement("button");
+    rsvpBtn.textContent = "RSVP";
+    rsvpBtn.addEventListener("click", () => {
+      nameSpan.classList.toggle("attending");
+      rsvpBtn.textContent = nameSpan.classList.contains("attending") ? "Attending" : "RSVP";
     });
-}
 
-function removeGuest(index) {
-    guests.splice(index, 1);  // Remove the guest from the array
-    renderGuestList();  // Re-render the list
-}
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Remove";
+    deleteBtn.style.backgroundColor = "#dc3545";
+    deleteBtn.addEventListener("click", () => {
+      guestList.removeChild(li);
+      guestCount--;
+    });
 
-function toggleRSVP(index) {
-    const guest = guests[index];
-    guest.attending = guest.attending === 'Attending' ? 'Not Attending' : 'Attending';
-    renderGuestList();  // Re-render the list after changing RSVP
-}
+    actions.appendChild(rsvpBtn);
+    actions.appendChild(deleteBtn);
+
+    li.appendChild(nameSection);
+    li.appendChild(actions);
+
+    guestList.appendChild(li);
+    guestCount++;
+  }
+});
+
